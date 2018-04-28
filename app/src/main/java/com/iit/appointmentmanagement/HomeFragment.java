@@ -83,14 +83,24 @@ public class HomeFragment extends Fragment {
         dialog.setContentView(R.layout.custom_popup);
         dialog.setTitle("Title...");
 
-//        Button dialogButton = (Button) dialog.findViewById(R.id.);
-//        // if button is clicked, close the custom dialog
-//        dialogButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
+        Button select_delete_btn = dialog.findViewById(R.id.select_delete_btn);
+        select_delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SelectAppointmentToDelete.class);
+                intent.putExtra("appointmentDate", appointmentDate);
+                getActivity().startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+
+        Button delete_all_btn = dialog.findViewById(R.id.delete_all_btn);
+        delete_all_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }

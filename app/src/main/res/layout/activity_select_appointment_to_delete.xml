@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectAppointmentToDelete">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:elevation="@dimen/elevation_high"
+        android:orientation="vertical"
+        tools:context=".HomeActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/menu_padding"
+            android:text="@string/appointment"
+            android:textAlignment="center"
+            android:textColor="@color/colourThemeBlue"
+            android:textSize="@dimen/main_title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/management"
+            android:textAlignment="center"
+            android:textColor="@color/colourThemeLightGray"
+            android:textSize="@dimen/sub_title" />
+
+        <ListView
+            android:id="@+id/searchResultList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/deleteTextValue"
+                android:layout_width="311dp"
+                android:layout_height="55dp"
+                android:hint="Appointment Number"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/deleteBtn"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/deleteTextValue"
+                android:background="@color/colourCreateAppointment"
+                android:drawableLeft="@drawable/delete_btn"
+                android:textColor="@color/colourWhite" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

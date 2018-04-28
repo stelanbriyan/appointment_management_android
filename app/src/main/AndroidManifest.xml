@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".CreateAppointmentActivity" />
         <activity android:name=".ViewEditActivity" />
-        <activity android:name=".SearchAppointmentActivity"></activity>
+        <activity android:name=".SearchAppointmentActivity" />
+        <activity android:name=".SelectAppointmentToDelete"></activity>
     </application>
 
 </manifest>
