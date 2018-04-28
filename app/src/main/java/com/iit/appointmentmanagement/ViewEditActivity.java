@@ -9,15 +9,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.iit.appointmentmanagement.adapter.CustomListAdapter;
 import com.iit.appointmentmanagement.database_sqlite.DBHandler;
 import com.iit.appointmentmanagement.entity.Appointment;
 
@@ -54,7 +53,7 @@ public class ViewEditActivity extends AppCompatActivity {
         this.appointments = this.dbHandler.findAppointmentsByDate(this.appointmentDate);
 
         ListView listView = findViewById(R.id.appointment_list);
-        listView.setAdapter(new CustomListAdapter());
+        listView.setAdapter(new CustomListAdapter(appointments, getLayoutInflater()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -139,55 +138,6 @@ public class ViewEditActivity extends AppCompatActivity {
 
         dialog.show();
         return appointment;
-    }
-
-    class CustomListAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return appointments.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = getLayoutInflater().inflate(R.layout.custom_list_item, null);
-
-            Appointment appointment = appointments.get(position);
-
-
-            if (appointment.getTitle() != null && !appointment.getTitle().isEmpty()) {
-                TextView icon = convertView.findViewById(R.id.letterItem);
-                icon.setText(String.valueOf(appointment.getTitle().toCharArray()[0]).toUpperCase());
-            }
-
-            String detail = "";
-
-//            if (appointment.getAppointmentDate() != null) {
-//                detail = detail.concat("").concat(shortDateFormat.format(appointment.getAppointmentDate()));
-//            }
-
-            if (appointment.getTime() != null) {
-                detail = detail.concat("").concat(shortTimeFormat.format(appointment.getTime()).concat("  - "));
-            }
-
-            TextView titleItem = convertView.findViewById(R.id.titleItem);
-            titleItem.setText(appointment.getTitle());
-
-            TextView detailItem = convertView.findViewById(R.id.detailItem);
-            detailItem.setText(detail.concat("Detail: ").concat(appointment.getDetail()));
-
-            return convertView;
-        }
     }
 
     /**

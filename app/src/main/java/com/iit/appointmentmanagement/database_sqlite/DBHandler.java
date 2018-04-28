@@ -182,7 +182,29 @@ public class DBHandler extends SQLiteOpenHelper {
             contentValues.put(createdDate, this.dateFormat.format(appointment.getCreatedDate()));
         }
 
-        db.update(tableName, contentValues , id + "=" + appointment.getId() , null);
+        db.update(tableName, contentValues, id + "=" + appointment.getId(), null);
         db.close();
+    }
+
+    public List<Appointment> findAppointments(String searchText) {
+        SQLiteDatabase db = getWritableDatabase();
+        String sql = "SELECT * FROM " + tableName + " WHERE "
+                + this.date + " LIKE '%" + searchText + "%' OR "
+                + this.title + " LIKE '%" + searchText + "%' OR "
+                + this.detail + " LIKE '%" + searchText + "%' OR "
+                + this.time + " LIKE '%" + searchText + "%' ORDER BY " + time + " DESC";
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+
+        List<Appointment> appointments = new ArrayList<>();
+        while (!cursor.isAfterLast()) {
+            if (cursor.getString(cursor.getColumnIndex("title")) != null) {
+                appointments.add(writeCursorToAppointment(cursor));
+            }
+            cursor.moveToNext();
+        }
+        return appointments;
     }
 }

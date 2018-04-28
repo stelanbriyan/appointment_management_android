@@ -14,6 +14,7 @@
     <string name="search">Search</string>
 
     <string name="title_appointment">Appointment Title</string>
+    <string name="search_text">Search Appointment</string>
     <string name="detail_appointment">Appointment Details</string>
     <string name="time">Time</string>
 

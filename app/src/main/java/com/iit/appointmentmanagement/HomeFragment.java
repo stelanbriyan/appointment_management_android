@@ -66,6 +66,15 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+        Button searchBtn = rootView.findViewById(R.id.searchBtn);
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchAppointmentActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         return rootView;
     }
 
