@@ -213,4 +213,10 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + tableName + " WHERE " + this.id + "=\'" + id + "\'");
         db.close();
     }
+
+    public void deleteAppointmentByDate(String appointmentDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + tableName + " WHERE " + this.date + "=\'" + appointmentDate + "\'");
+        db.close();
+    }
 }

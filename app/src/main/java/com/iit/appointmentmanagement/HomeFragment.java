@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 
+import com.iit.appointmentmanagement.database_sqlite.DBHandler;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,8 @@ public class HomeFragment extends Fragment {
     private DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private String appointmentDate;
+
+    private DBHandler dbHandler;
 
     @Nullable
     @Override
@@ -75,6 +79,9 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
+
+
+        this.dbHandler = new DBHandler(getActivity(), null, null, 1);
         return rootView;
     }
 
@@ -98,6 +105,7 @@ public class HomeFragment extends Fragment {
         delete_all_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dbHandler.deleteAppointmentByDate(appointmentDate);
                 dialog.dismiss();
             }
         });
