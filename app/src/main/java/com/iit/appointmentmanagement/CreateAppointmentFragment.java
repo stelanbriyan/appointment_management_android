@@ -22,7 +22,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class CreateAppointmentFragment extends Fragment {
     private DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");

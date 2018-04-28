@@ -16,4 +16,9 @@
     <string name="title_appointment">Appointment Title</string>
     <string name="detail_appointment">Appointment Details</string>
     <string name="time">Time</string>
+
+    <string name="delete_popup_title">Please select an option to delete appointments.</string>
+    <string name="delete_appointments">Delete all appointments\nfor selected date</string>
+    <string name="select_appointments">Select appointment\nto delete</string>
+
 </resources>

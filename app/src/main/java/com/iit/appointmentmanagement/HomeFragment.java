@@ -1,5 +1,6 @@
 package com.iit.appointmentmanagement;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,11 +44,36 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
-                intent.putExtra("appointmentDate" , appointmentDate );
+                intent.putExtra("appointmentDate", appointmentDate);
                 getActivity().startActivity(intent);
             }
         });
 
+        Button deleteBtn = rootView.findViewById(R.id.deleteBtn);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDeletePopup();
+            }
+        });
+
         return rootView;
+    }
+
+    public void openDeletePopup(){
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.custom_popup);
+        dialog.setTitle("Title...");
+
+//        Button dialogButton = (Button) dialog.findViewById(R.id.);
+//        // if button is clicked, close the custom dialog
+//        dialogButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+
+        dialog.show();
     }
 }

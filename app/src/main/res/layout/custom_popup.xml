@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_popup_title" />
+
+
+    <Button
+        android:id="@+id/delete_all_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/colourCreateAppointment"
+        android:padding="20dp"
+        android:text="@string/delete_appointments"
+        android:textColor="@color/colourWhite" />
+
+    <Button
+        android:id="@+id/select_delete_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:background="@color/colourCreateAppointment"
+        android:text="@string/select_appointments"
+        android:textColor="@color/colourWhite" />
+
+
+</LinearLayout>
