@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="15dp"
+    android:padding="20dp"
     android:layout_height="match_parent">
 
     <TextView
@@ -18,22 +18,22 @@
         android:text="M" />
 
     <TextView
+        android:id="@+id/titleItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/image_id"
         android:layout_toRightOf="@id/image_id"
-        android:text="Meeting With Johan"
-        android:textSize="15dp" />
+        android:textSize="17dp"/>
 
     <TextView
+        android:id="@+id/detailItem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/image_id"
         android:layout_toEndOf="@+id/image_id"
         android:layout_toRightOf="@id/image_id"
-        android:textSize="10dp"
-        android:textColor="@color/colourThemeLightGray"
-        android:text="10:00 - Text Details" />
+        android:textSize="14dp"
+        android:textColor="@color/colourThemeLightGray"/>
 
 </RelativeLayout>

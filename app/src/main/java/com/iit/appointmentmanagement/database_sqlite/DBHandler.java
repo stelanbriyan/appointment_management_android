@@ -76,7 +76,7 @@ public class DBHandler extends SQLiteOpenHelper {
         appointment.setDetail(cursor.getString(cursor.getColumnIndex(this.detail)));
 
         String date = cursor.getString(cursor.getColumnIndex(this.date));
-        if(date != null && !date.isEmpty()){
+        if (date != null && !date.isEmpty()) {
             try {
                 appointment.setAppointmentDate(shortDateFormat.parse(date));
             } catch (ParseException e) {
@@ -84,8 +84,17 @@ public class DBHandler extends SQLiteOpenHelper {
             }
         }
 
+        String time = cursor.getString(cursor.getColumnIndex(this.time));
+        if (time != null && !time.isEmpty()) {
+            try {
+                appointment.setTime(timeFormat.parse(time));
+            } catch (ParseException e) {
+                Log.e(DBHandler.class.toString(), e.getMessage(), e);
+            }
+        }
+
         String createdDate = cursor.getString(cursor.getColumnIndex(this.createdDate));
-        if(date != null && !date.isEmpty()){
+        if (date != null && !date.isEmpty()) {
             try {
                 appointment.setCreatedDate(shortDateFormat.parse(createdDate));
             } catch (ParseException e) {
@@ -121,6 +130,25 @@ public class DBHandler extends SQLiteOpenHelper {
     public List<Appointment> findAppointments() {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "SELECT * FROM " + tableName;
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        cursor.moveToFirst();
+
+        List<Appointment> appointments = new ArrayList<>();
+        while (!cursor.isAfterLast()) {
+            if (cursor.getString(cursor.getColumnIndex("title")) != null) {
+                appointments.add(writeCursorToAppointment(cursor));
+            }
+            cursor.moveToNext();
+        }
+        return appointments;
+    }
+
+    public List<Appointment> findAppointmentsByDate(Date appointmentDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        String sql = "SELECT * FROM " + tableName + " WHERE "
+                + this.date + "= '" + shortDateFormat.format(appointmentDate) + "' ORDER BY " + createdDate + " DESC";
 
         Cursor cursor = db.rawQuery(sql, null);
 
