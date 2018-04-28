@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.iit.appointmentmanagement.CreateAppointmentFragment;
 import com.iit.appointmentmanagement.entity.Appointment;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -68,9 +71,27 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private Appointment writeCursorToAppointment(Cursor cursor) {
         Appointment appointment = new Appointment();
-        appointment.setId(cursor.getInt(cursor.getColumnIndex(id)));
-        appointment.setTitle(cursor.getString(cursor.getColumnIndex(title)));
-        appointment.setDetail(cursor.getString(cursor.getColumnIndex(detail)));
+        appointment.setId(cursor.getInt(cursor.getColumnIndex(this.id)));
+        appointment.setTitle(cursor.getString(cursor.getColumnIndex(this.title)));
+        appointment.setDetail(cursor.getString(cursor.getColumnIndex(this.detail)));
+
+        String date = cursor.getString(cursor.getColumnIndex(this.date));
+        if(date != null && !date.isEmpty()){
+            try {
+                appointment.setAppointmentDate(shortDateFormat.parse(date));
+            } catch (ParseException e) {
+                Log.e(DBHandler.class.toString(), e.getMessage(), e);
+            }
+        }
+
+        String createdDate = cursor.getString(cursor.getColumnIndex(this.createdDate));
+        if(date != null && !date.isEmpty()){
+            try {
+                appointment.setCreatedDate(shortDateFormat.parse(createdDate));
+            } catch (ParseException e) {
+                Log.e(DBHandler.class.toString(), e.getMessage(), e);
+            }
+        }
         return appointment;
     }
 

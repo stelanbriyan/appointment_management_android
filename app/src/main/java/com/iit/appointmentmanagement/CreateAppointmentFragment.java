@@ -94,6 +94,9 @@ public class CreateAppointmentFragment extends Fragment {
                 appointment.setCreatedDate(new Date());
 
                 dbHandler.createAppointment(appointment);
+
+//                Intent intent = new Intent(getActivity(), CreateAppointmentActivity.class);
+//                getActivity().startActivity(intent);
                 showDialog("Appointment '" + title + "' on " + shortDateFormat.format(this.appointmentDate) + " was created successfully.");
             }
         } else {
@@ -116,6 +119,7 @@ public class CreateAppointmentFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
+                        getActivity().onBackPressed();
                     }
                 });
 
