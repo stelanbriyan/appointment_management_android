@@ -35,4 +35,5 @@
         android:textSize="10dp"
         android:textColor="@color/colourThemeLightGray"
         android:text="10:00 - Text Details" />
+
 </RelativeLayout>

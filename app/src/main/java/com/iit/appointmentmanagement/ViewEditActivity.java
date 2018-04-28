@@ -23,7 +23,7 @@ public class ViewEditActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 20;
         }
 
         @Override
