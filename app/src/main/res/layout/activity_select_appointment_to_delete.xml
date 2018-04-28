@@ -31,11 +31,6 @@
             android:textColor="@color/colourThemeLightGray"
             android:textSize="@dimen/sub_title" />
 
-        <ListView
-            android:id="@+id/searchResultList"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -63,5 +58,10 @@
                 android:textColor="@color/colourWhite" />
 
         </RelativeLayout>
+
+        <ListView
+            android:id="@+id/searchResultList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

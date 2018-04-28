@@ -207,4 +207,10 @@ public class DBHandler extends SQLiteOpenHelper {
         }
         return appointments;
     }
+
+    public void deleteAppointmentById(Integer id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + tableName + " WHERE " + this.id + "=\'" + id + "\'");
+        db.close();
+    }
 }

@@ -11,6 +11,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.iit.appointmentmanagement.database_sqlite.DBHandler;
 import com.iit.appointmentmanagement.entity.Appointment;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,9 +33,10 @@ public class SelectAppointmentToDelete extends AppCompatActivity {
     private Date appointmentDate;
 
     private DBHandler dbHandler;
+    private ListView listView;
 
     private List<Appointment> appointments;
-    String countryList[] = {"India", "China", "australia", "Portugle", "America", "NewZealand"};
+    String appointmentArray[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +53,55 @@ public class SelectAppointmentToDelete extends AppCompatActivity {
 
         this.dbHandler = new DBHandler(this, null, null, 1);
 
+
+        this.listView = findViewById(R.id.searchResultList);
+        this.loadItems();
+
+        final EditText deleteTextValue = findViewById(R.id.deleteTextValue);
+
         Button deleteBtn = findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"Couldn't find any matches", Toast.LENGTH_SHORT).show();
+                Integer id = null;
+                for (int i = 0; i < appointments.size(); i++) {
+                    if (String.valueOf(i + 1).equals(deleteTextValue.getText().toString())) {
+                        Appointment appointment = appointments.get(i);
+                        id = appointment.getId();
+                    }
+                }
+
+                if (id != null) {
+                    dbHandler.deleteAppointmentById(id);
+                    Toast.makeText(getBaseContext(), "Selected appointment deleted successfully", Toast.LENGTH_SHORT).show();
+
+                    loadItems();
+                } else {
+                    Toast.makeText(getBaseContext(), "Couldn't find any matches", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
 
+    public void loadItems() {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance();
+        numberFormat.setMinimumIntegerDigits(2);
+        numberFormat.setGroupingUsed(false);
 
-//        this.appointments = dbHandler.findAppointmentsByDate(this.appointmentDate);
-//
-//        ListView listView = findViewById(R.id.searchResultList);
-//
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_select_appointment_to_delete, R.id.deleteTextValue, countryList);
-//        listView.setAdapter(arrayAdapter);
+        this.appointments = dbHandler.findAppointmentsByDate(this.appointmentDate);
+        appointmentArray = new String[this.appointments.size()];
+
+        for (int i = 0; i < this.appointments.size(); i++) {
+            Appointment appointment = appointments.get(i);
+            String detail = numberFormat.format((i + 1)) + ". ";
+
+            if (appointment.getTime() != null) {
+                detail = detail.concat(shortTimeFormat.format(appointment.getTime()));
+            }
+            appointmentArray[i] = detail.concat(" ").concat(appointment.getTitle());
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.custom_delete_list_item, R.id.letterItemLine, appointmentArray);
+        listView.setAdapter(arrayAdapter);
     }
 }
