@@ -72,6 +72,12 @@ public class ViewEditActivity extends AppCompatActivity {
 
             Appointment appointment = appointments.get(position);
 
+
+            if (appointment.getTitle() != null && !appointment.getTitle().isEmpty()) {
+                TextView icon = convertView.findViewById(R.id.letterItem);
+                icon.setText(String.valueOf(appointment.getTitle().toCharArray()[0]).toUpperCase());
+            }
+
             String detail = "";
 
 //            if (appointment.getAppointmentDate() != null) {
