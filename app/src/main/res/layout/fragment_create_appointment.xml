@@ -60,6 +60,7 @@
             android:inputType="textMultiLine"/>
 
         <Button
+            android:id="@+id/saveBtn"
             android:layout_width="match_parent"
             android:text="Save"
             android:background="@color/colourCreateAppointment"
