@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colourCreateAppointment">#053e5f</color>
+    <color name="colourViewEditAppointment">#57a4b0</color>
+    <color name="colourDeleteAppointment">#d34a5d</color>
+    <color name="colourMoveAppointment">#eeaf48</color>
+    <color name="colourSearch">#31afec</color>
+    <color name="colourWhite">#fff</color>
+
+    <color name="colourThemeBlue">#007399</color>
+    <color name="colourThemeLightGray">#838383</color>
+    <color name="colourThemeYellow">#f8e648</color>
+    <color name="colourThemeGray">#f0f0f0</color>
 </resources>

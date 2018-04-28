@@ -3,4 +3,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="appointment">APPOINTMENT</string>
+    <string name="management">management</string>
+
+    <string name="create_appointment">Create Appointment</string>
+    <string name="view_edit_appointments">View/Edit\nAppointment</string>
+    <string name="delete_appointment">Delete\nAppointment</string>
+    <string name="move_appointment">Move\nAppointment</string>
+    <string name="search">Search</string>
 </resources>

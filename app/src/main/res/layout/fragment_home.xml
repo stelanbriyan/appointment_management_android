@@ -5,5 +5,37 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:elevation="@dimen/elevation_high"
+        android:orientation="vertical"
+        android:padding="@dimen/menu_padding"
+        tools:context=".HomeActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@string/appointment"
+            android:textSize="@dimen/main_title"
+            android:textColor="@color/colourThemeBlue"
+            android:textAlignment="center"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:text="@string/management"
+            android:textColor="@color/colourThemeLightGray"
+            android:textSize="@dimen/sub_title"
+            android:layout_height="wrap_content" />
+
+
+        <include
+            layout="@layout/home_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </FrameLayout>

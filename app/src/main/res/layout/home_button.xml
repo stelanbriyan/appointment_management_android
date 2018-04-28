@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TableRow
+            android:id="@+id/tableRowDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/colourThemeGray"
+                android:layout_margin="@dimen/home_button_margin"/>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+            <Button
+                android:id="@+id/clientimain"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@color/colourCreateAppointment"
+                android:drawableLeft="@drawable/create"
+                android:textColor="@color/colourWhite"
+                android:layout_margin="@dimen/home_button_margin"
+                android:text="@string/create_appointment" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colourWhite"
+                android:background="@color/colourViewEditAppointment"
+                android:layout_margin="@dimen/home_button_margin"
+                android:text="@string/view_edit_appointments" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colourWhite"
+                android:background="@color/colourDeleteAppointment"
+                android:layout_margin="@dimen/home_button_margin"
+                android:text="@string/delete_appointment" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colourWhite"
+                android:background="@color/colourMoveAppointment"
+                android:layout_margin="@dimen/home_button_margin"
+                android:text="@string/move_appointment" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:textColor="@color/colourWhite"
+                android:layout_margin="@dimen/home_button_margin"
+                android:drawableLeft="@drawable/search_icon"
+                android:background="@color/colourSearch"
+                android:text="@string/search" />
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

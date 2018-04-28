@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="elevation_high">8dp</dimen>
+    <dimen name="menu_padding">20dp</dimen>
+    <dimen name="home_button_margin">5dp</dimen>
+
+
+    <dimen name="main_title">35dp</dimen>
+    <dimen name="sub_title">20dp</dimen>
+</resources>
