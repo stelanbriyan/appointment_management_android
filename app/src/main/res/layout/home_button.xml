@@ -32,13 +32,13 @@
             android:layout_weight="0.3">
 
             <Button
-                android:id="@+id/clientimain"
+                android:id="@+id/createAppointmentBtn"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:background="@color/colourCreateAppointment"
-                android:drawableLeft="@drawable/create"
                 android:textColor="@color/colourWhite"
+                android:drawableLeft="@drawable/create"
                 android:layout_margin="@dimen/home_button_margin"
                 android:text="@string/create_appointment" />
 

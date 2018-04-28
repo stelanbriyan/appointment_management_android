@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateAppointmentFragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:elevation="@dimen/elevation_high"
+        android:orientation="vertical"
+        android:padding="@dimen/menu_padding"
+        tools:context=".HomeActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/appointment"
+            android:textAlignment="center"
+            android:textColor="@color/colourThemeBlue"
+            android:textSize="@dimen/main_title" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/management"
+            android:textAlignment="center"
+            android:textColor="@color/colourThemeLightGray"
+            android:textSize="@dimen/sub_title" />
+
+
+        <EditText
+            android:id="@+id/appointmentTitleTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/title_appointment"
+            android:inputType="text"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="92dp" />
+
+        <EditText
+            android:id="@+id/appointmentTimeTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/time"
+            android:inputType="time"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="92dp" />
+
+        <EditText
+            android:id="@+id/appointmentDetailTxt"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/detail_appointment"
+            android:inputType="textMultiLine"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:text="Save"
+            android:background="@color/colourCreateAppointment"
+            android:textColor="@color/colourWhite"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</FrameLayout>
