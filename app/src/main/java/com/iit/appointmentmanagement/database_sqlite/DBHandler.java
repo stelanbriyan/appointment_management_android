@@ -148,7 +148,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public List<Appointment> findAppointmentsByDate(Date appointmentDate) {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "SELECT * FROM " + tableName + " WHERE "
-                + this.date + "= '" + shortDateFormat.format(appointmentDate) + "' ORDER BY " + createdDate + " DESC";
+                + this.date + "= '" + shortDateFormat.format(appointmentDate) + "' ORDER BY " + time + " DESC";
 
         Cursor cursor = db.rawQuery(sql, null);
 
@@ -162,5 +162,27 @@ public class DBHandler extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         return appointments;
+    }
+
+    public void updateAppointment(Appointment appointment) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        if (appointment.getCreatedDate() != null) {
+            contentValues.put(date, this.shortDateFormat.format(appointment.getCreatedDate()));
+        }
+        if (appointment.getTime() != null) {
+            contentValues.put(time, this.timeFormat.format(appointment.getTime()));
+        }
+        contentValues.put(title, appointment.getTitle());
+        contentValues.put(detail, appointment.getDetail());
+
+        if (appointment.getCreatedDate() != null) {
+            contentValues.put(createdDate, this.dateFormat.format(appointment.getCreatedDate()));
+        }
+
+        db.update(tableName, contentValues , id + "=" + appointment.getId() , null);
+        db.close();
     }
 }
