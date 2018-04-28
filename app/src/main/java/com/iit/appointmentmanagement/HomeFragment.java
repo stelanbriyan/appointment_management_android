@@ -57,10 +57,19 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button viewEditBtn = rootView.findViewById(R.id.viewEditBtn);
+        viewEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ViewEditActivity.class);
+                intent.putExtra("appointmentDate", appointmentDate);
+                getActivity().startActivity(intent);
+            }
+        });
         return rootView;
     }
 
-    public void openDeletePopup(){
+    public void openDeletePopup() {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.custom_popup);
         dialog.setTitle("Title...");
