@@ -31,15 +31,32 @@
             android:textSize="@dimen/sub_title" />
 
 
-        <EditText
-            android:id="@+id/appointmentTitleTxt"
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="@string/title_appointment"
-            android:inputType="text"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="92dp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/appointmentTitleTxt"
+                android:layout_width="311dp"
+                android:layout_height="55dp"
+                android:hint="@string/title_appointment"
+                android:inputType="text"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="92dp" />
+
+            <Button
+                android:id="@+id/thesaurusSelectBtn"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/appointmentTitleTxt"
+                android:background="@color/colourMoveAppointment"
+                android:drawableLeft="@drawable/thesaurus"
+                android:textColor="@color/colourWhite" />
+
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/appointmentTimeTxt"

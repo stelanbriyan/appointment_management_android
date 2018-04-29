@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,6 +107,27 @@ public class CreateAppointmentFragment extends Fragment {
             }
         });
 
+
+        Button thesaurusSelectBtn = rootView.findViewById(R.id.thesaurusSelectBtn);
+        thesaurusSelectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (titleTxt.isSelected()) {
+                    try {
+                        int startSelection = titleTxt.getSelectionStart();
+                        int endSelection = titleTxt.getSelectionEnd();
+
+                        String substring = titleTxt.getText().toString().substring(startSelection, endSelection);
+                        openThesaurus(substring);
+                    } catch (IOException e) {
+
+                    }
+//                } else {
+//                    Toast.makeText(getActivity(), "Highlight a word!", Toast.LENGTH_SHORT).show();
+//                }
+            }
+        });
+
         return rootView;
     }
 
@@ -115,7 +137,7 @@ public class CreateAppointmentFragment extends Fragment {
      * @param word
      * @throws IOException
      */
-    public void openThesaurus(String word) throws IOException {
+    public void openThesaurus(final String word) throws IOException {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.thesaurus_popup);
 
@@ -126,6 +148,14 @@ public class CreateAppointmentFragment extends Fragment {
         dialog.getWindow().setAttributes(lWindowParams);
 
         thesaurusList = dialog.findViewById(R.id.thesaurusList);
+        thesaurusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selectedThesaurus = thesaurusArray[position].replace("(generic term)", "").replace("(noun)", "");
+                titleTxt.setText(titleTxt.getText().toString().replace(word, selectedThesaurus));
+                dialog.dismiss();
+            }
+        });
 
         if (word.isEmpty()) {
             Toast.makeText(getActivity(), "Type here something!", Toast.LENGTH_SHORT).show();
