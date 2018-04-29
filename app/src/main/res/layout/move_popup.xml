@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content" />
 
             <CalendarView
+                android:id="@+id/moveCalendar"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"></CalendarView>
 

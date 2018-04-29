@@ -1,7 +1,10 @@
 package com.iit.appointmentmanagement;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,6 +26,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class MoveAppointmentActivity extends AppCompatActivity {
@@ -29,6 +34,7 @@ public class MoveAppointmentActivity extends AppCompatActivity {
     private DateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");
 
     private Date appointmentDate;
+    private Date newAppointmentDate;
 
     private DBHandler dbHandler;
     private ListView listView;
@@ -61,11 +67,17 @@ public class MoveAppointmentActivity extends AppCompatActivity {
         moveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Appointment appointment = null;
                 for (int i = 0; i < appointments.size(); i++) {
                     if (String.valueOf(i + 1).equals(moveTextValue.getText().toString())) {
-                        Appointment appointment = appointments.get(i);
-                        openMoveBox(appointment);
+                        appointment = appointments.get(i);
                     }
+                }
+
+                if (appointment != null) {
+                    openMoveBox(appointment);
+                } else {
+                    Toast.makeText(getBaseContext(), "Couldn't find any matches", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -103,7 +115,55 @@ public class MoveAppointmentActivity extends AppCompatActivity {
         lWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lWindowParams);
 
+        newAppointmentDate = new Date();
+        CalendarView calendarView = dialog.findViewById(R.id.moveCalendar);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                newAppointmentDate = new GregorianCalendar(year, month, dayOfMonth).getTime();
+            }
+        });
+
+        Button moveBtn = dialog.findViewById(R.id.moveBtn);
+        moveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                appointment.setAppointmentDate(newAppointmentDate);
+
+                Appointment appointmentByTitleAndDate = dbHandler.getAppointmentByTitleAndDate(appointment.getTitle(), newAppointmentDate);
+                if (appointmentByTitleAndDate == null) {
+                    dbHandler.updateAppointment(appointment);
+                    loadItems();
+                    dialog.dismiss();
+                } else {
+                    showDialog("Appointment '" + appointment.getTitle() + "' already exists, please choose a different appointment date.");
+                }
+            }
+        });
+
         dialog.show();
         return appointment;
+    }
+
+    /**
+     * This function creates a dialog box which takes
+     *
+     * @param message String
+     */
+    public void showDialog(String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(msg);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

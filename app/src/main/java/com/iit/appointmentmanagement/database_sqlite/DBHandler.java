@@ -169,8 +169,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
         ContentValues contentValues = new ContentValues();
 
-        if (appointment.getCreatedDate() != null) {
-            contentValues.put(date, this.shortDateFormat.format(appointment.getCreatedDate()));
+        if (appointment.getAppointmentDate() != null) {
+            contentValues.put(date, this.shortDateFormat.format(appointment.getAppointmentDate()));
         }
         if (appointment.getTime() != null) {
             contentValues.put(time, this.timeFormat.format(appointment.getTime()));
