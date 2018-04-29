@@ -1,14 +1,18 @@
 package com.iit.appointmentmanagement;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.iit.appointmentmanagement.database_sqlite.DBHandler;
 import com.iit.appointmentmanagement.entity.Appointment;
@@ -57,7 +61,12 @@ public class MoveAppointmentActivity extends AppCompatActivity {
         moveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                for (int i = 0; i < appointments.size(); i++) {
+                    if (String.valueOf(i + 1).equals(moveTextValue.getText().toString())) {
+                        Appointment appointment = appointments.get(i);
+                        openMoveBox(appointment);
+                    }
+                }
             }
         });
     }
@@ -82,5 +91,19 @@ public class MoveAppointmentActivity extends AppCompatActivity {
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.custom_delete_list_item, R.id.letterItemLine, appointmentArray);
         listView.setAdapter(arrayAdapter);
+    }
+
+    public Appointment openMoveBox(final Appointment appointment) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.move_popup);
+
+        WindowManager.LayoutParams lWindowParams = new WindowManager.LayoutParams();
+        lWindowParams.copyFrom(getWindow().getAttributes());
+        lWindowParams.width = WindowManager.LayoutParams.FILL_PARENT; // this is where the magic happens
+        lWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lWindowParams);
+
+        dialog.show();
+        return appointment;
     }
 }
