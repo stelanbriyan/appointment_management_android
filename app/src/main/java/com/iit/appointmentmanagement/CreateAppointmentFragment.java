@@ -111,6 +111,7 @@ public class CreateAppointmentFragment extends Fragment {
 
     /**
      * Open external popup window and show thesaurus on it.
+     *
      * @param word
      * @throws IOException
      */
@@ -126,13 +127,17 @@ public class CreateAppointmentFragment extends Fragment {
 
         thesaurusList = dialog.findViewById(R.id.thesaurusList);
 
-        if (isNetworkAvailable()) {
-            this.url = this.thesaurusService.getUrl();
-            this.url = this.url.replace("&{word}", word);
-            new ThesaurusCaller().execute();
-            dialog.show();
+        if (word.isEmpty()) {
+            Toast.makeText(getActivity(), "Type here something!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getActivity(), "Internet is required!", Toast.LENGTH_SHORT).show();
+            if (isNetworkAvailable()) {
+                this.url = this.thesaurusService.getUrl();
+                this.url = this.url.replace("&{word}", word);
+                new ThesaurusCaller().execute();
+                dialog.show();
+            } else {
+                Toast.makeText(getActivity(), "Internet is required!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -268,17 +273,21 @@ public class CreateAppointmentFragment extends Fragment {
 
         JsonNode node = jsonNode.get("response");
 
-        List<Thesaurus> thesauruses = new ArrayList<>();
+        List<String> words = new ArrayList<>();
         for (JsonNode jNode : node) {
             JsonNode listNode = jNode.get("list");
-            thesauruses.add(mapper.readValue(listNode.toString(), Thesaurus.class));
+            Thesaurus thesaurus = mapper.readValue(listNode.toString(), Thesaurus.class);
+
+            String[] synonyms = thesaurus.getSynonyms().split("[|]");
+            for (String syn : synonyms) {
+                words.add(syn.concat(" ").concat(thesaurus.getCategory()));
+            }
         }
 
-        thesaurusArray = new String[thesauruses.size()];
+        thesaurusArray = new String[words.size()];
 
         for (int i = 0; i < thesaurusArray.length; i++) {
-            Thesaurus thesaurus = thesauruses.get(i);
-            thesaurusArray[i] = thesaurus.getCategory().concat(" ").concat(thesaurus.getSynonyms());
+            thesaurusArray[i] = words.get(i);
         }
     }
 }
