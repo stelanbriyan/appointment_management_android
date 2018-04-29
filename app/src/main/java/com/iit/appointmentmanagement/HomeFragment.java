@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import com.iit.appointmentmanagement.database_sqlite.DBHandler;
 
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dbHandler.deleteAppointmentByDate(appointmentDate);
+                Toast.makeText(getActivity(), "All appointments deleted for selected appointment date.", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

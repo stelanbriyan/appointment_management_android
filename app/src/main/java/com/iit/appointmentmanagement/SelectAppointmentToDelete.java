@@ -1,7 +1,9 @@
 package com.iit.appointmentmanagement;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -72,15 +74,35 @@ public class SelectAppointmentToDelete extends AppCompatActivity {
                 }
 
                 if (id != null) {
-                    dbHandler.deleteAppointmentById(id);
-                    Toast.makeText(getBaseContext(), "Selected appointment deleted successfully", Toast.LENGTH_SHORT).show();
-
-                    loadItems();
+                    showConfirmDialog(id);
                 } else {
                     Toast.makeText(getBaseContext(), "Couldn't find any matches", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void showConfirmDialog(final Integer id) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        dbHandler.deleteAppointmentById(id);
+                        Toast.makeText(getBaseContext(), "Selected appointment deleted successfully", Toast.LENGTH_SHORT).show();
+                        loadItems();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 
     public void loadItems() {
