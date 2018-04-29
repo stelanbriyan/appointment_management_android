@@ -66,6 +66,25 @@
             android:background="@color/colourCreateAppointment"
             android:textColor="@color/colourWhite"
             android:layout_height="wrap_content" />
+
+
+        <EditText
+            android:id="@+id/thesaurusTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Thesaurus"
+            android:inputType="text"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="92dp" />
+
+        <Button
+            android:id="@+id/thesaurusBtn"
+            android:layout_width="match_parent"
+            android:text="Thesaurus"
+            android:background="@color/colourMoveAppointment"
+            android:textColor="@color/colourWhite"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 

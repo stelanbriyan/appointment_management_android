@@ -1,7 +1,12 @@
 package com.iit.appointmentmanagement;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,16 +17,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iit.appointmentmanagement.database_sqlite.DBHandler;
 import com.iit.appointmentmanagement.entity.Appointment;
+import com.iit.appointmentmanagement.entity.Thesaurus;
+import com.iit.appointmentmanagement.thesaurus.ThesaurusService;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Stelan Briyan
@@ -31,9 +52,15 @@ public class CreateAppointmentFragment extends Fragment {
     private DateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");
 
     private Date appointmentDate;
-    private EditText titleTxt, timeTxt, detailTxt;
-
+    private EditText titleTxt, timeTxt, detailTxt, thesaurusTxt;
+    private ListView thesaurusList;
     private DBHandler dbHandler;
+
+    private String[] thesaurusArray;
+
+    private ThesaurusService thesaurusService;
+
+    private String url;
 
     @Nullable
     @Override
@@ -63,7 +90,50 @@ public class CreateAppointmentFragment extends Fragment {
             }
         });
 
+        this.thesaurusTxt = rootView.findViewById(R.id.thesaurusTxt);
+        Button thesaurusBtn = rootView.findViewById(R.id.thesaurusBtn);
+
+        this.thesaurusService = new ThesaurusService();
+        thesaurusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    openThesaurus(thesaurusTxt.getText().toString());
+                } catch (IOException e) {
+
+                }
+            }
+        });
+
         return rootView;
+    }
+
+    public void openThesaurus(String word) throws IOException {
+        final Dialog dialog = new Dialog(getActivity());
+        dialog.setContentView(R.layout.thesaurus_popup);
+
+        WindowManager.LayoutParams lWindowParams = new WindowManager.LayoutParams();
+        lWindowParams.copyFrom(getActivity().getWindow().getAttributes());
+        lWindowParams.width = WindowManager.LayoutParams.FILL_PARENT; // this is where the magic happens
+        lWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        dialog.getWindow().setAttributes(lWindowParams);
+
+        thesaurusList = dialog.findViewById(R.id.thesaurusList);
+
+        if (isNetworkAvailable()) {
+            this.url = this.thesaurusService.getUrl();
+            this.url = this.url.replace("&{word}", word);
+            new ThesaurusCaller().execute();
+        }
+        dialog.show();
+    }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     public void saveAppointment() {
@@ -129,4 +199,60 @@ public class CreateAppointmentFragment extends Fragment {
         alert.show();
     }
 
+    private class ThesaurusCaller extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+
+            try {
+                downloadData(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.custom_thersaurus_list_item, R.id.thesaurusTextItem, thesaurusArray);
+            thesaurusList.setAdapter(arrayAdapter);
+        }
+    }
+
+    public void downloadData(String url) throws IOException {
+        URL myurl = new URL(url);
+        URLConnection con = myurl.openConnection();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        JsonFactory factory = mapper.getFactory();
+        JsonParser parser = factory.createParser(response.toString());
+        JsonNode jsonNode = mapper.readTree(parser);
+
+        JsonNode node = jsonNode.get("response");
+
+        List<Thesaurus> thesauruses = new ArrayList<>();
+        for (JsonNode jNode : node) {
+            JsonNode listNode = jNode.get("list");
+            thesauruses.add(mapper.readValue(listNode.toString(), Thesaurus.class));
+        }
+
+        thesaurusArray = new String[thesauruses.size()];
+
+        for (int i = 0; i < thesaurusArray.length; i++) {
+            Thesaurus thesaurus = thesauruses.get(i);
+            thesaurusArray[i] = thesaurus.getCategory().concat(" ").concat(thesaurus.getSynonyms());
+        }
+    }
 }
