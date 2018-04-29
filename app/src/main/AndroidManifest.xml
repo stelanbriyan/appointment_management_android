@@ -19,7 +19,8 @@
         <activity android:name=".CreateAppointmentActivity" />
         <activity android:name=".ViewEditActivity" />
         <activity android:name=".SearchAppointmentActivity" />
-        <activity android:name=".SelectAppointmentToDelete"></activity>
+        <activity android:name=".SelectAppointmentToDelete" />
+        <activity android:name=".MoveAppointmentActivity"></activity>
     </application>
 
 </manifest>

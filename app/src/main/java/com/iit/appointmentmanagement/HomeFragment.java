@@ -80,6 +80,15 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        Button moveAppointmentBtn = rootView.findViewById(R.id.moveAppointmentBtn);
+        moveAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MoveAppointmentActivity.class);
+                intent.putExtra("appointmentDate", appointmentDate);
+                getActivity().startActivity(intent);
+            }
+        });
 
         this.dbHandler = new DBHandler(getActivity(), null, null, 1);
         return rootView;

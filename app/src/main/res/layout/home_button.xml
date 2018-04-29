@@ -79,7 +79,7 @@
             android:layout_weight="0.3">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/moveAppointmentBtn"
                 android:layout_width="0dip"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
