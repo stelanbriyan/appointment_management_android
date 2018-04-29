@@ -1,5 +1,8 @@
 package com.iit.appointmentmanagement.entity;
 
+/**
+ * @author Stelan Briyan
+ */
 public class Thesaurus {
     private String category;
     private String synonyms;

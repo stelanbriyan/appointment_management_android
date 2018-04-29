@@ -2,6 +2,9 @@ package com.iit.appointmentmanagement.entity;
 
 import java.util.Date;
 
+/**
+ * @author Stelan Briyan
+ */
 public class Appointment {
     private int id;
     private String title;

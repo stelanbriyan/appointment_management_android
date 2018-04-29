@@ -21,6 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ * @author Stelan Briyan
+ */
 public class HomeFragment extends Fragment {
     private DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

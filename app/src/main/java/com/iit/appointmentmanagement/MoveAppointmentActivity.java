@@ -29,6 +29,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * @author Stelan Briyan
+ */
 public class MoveAppointmentActivity extends AppCompatActivity {
     private DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private DateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");

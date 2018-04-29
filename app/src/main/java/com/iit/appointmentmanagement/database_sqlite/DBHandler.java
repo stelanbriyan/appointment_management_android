@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Stelan Briyan
+ */
 public class DBHandler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "appointment_management.db";
@@ -51,6 +54,12 @@ public class DBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Return appointments from the db by searching title and appointment date.
+     * @param title
+     * @param appointmentDate
+     * @return
+     */
     public Appointment getAppointmentByTitleAndDate(String title, Date appointmentDate) {
         SQLiteDatabase db = getWritableDatabase();
         String sql = " SELECT * FROM " + tableName + " WHERE "
@@ -69,6 +78,11 @@ public class DBHandler extends SQLiteOpenHelper {
         return null;
     }
 
+    /**
+     * Convert cursor object to the appointment object.
+     * @param cursor
+     * @return
+     */
     private Appointment writeCursorToAppointment(Cursor cursor) {
         Appointment appointment = new Appointment();
         appointment.setId(cursor.getInt(cursor.getColumnIndex(this.id)));
@@ -104,6 +118,11 @@ public class DBHandler extends SQLiteOpenHelper {
         return appointment;
     }
 
+    /**
+     * Save new appointment to the db.
+     * @param appointment
+     * @return
+     */
     public boolean createAppointment(Appointment appointment) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -127,6 +146,10 @@ public class DBHandler extends SQLiteOpenHelper {
         return true;
     }
 
+    /**
+     * Find all appointments.
+     * @return
+     */
     public List<Appointment> findAppointments() {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "SELECT * FROM " + tableName;
@@ -145,6 +168,11 @@ public class DBHandler extends SQLiteOpenHelper {
         return appointments;
     }
 
+    /**
+     * Find all appointments for appointment date.
+     * @param appointmentDate
+     * @return
+     */
     public List<Appointment> findAppointmentsByDate(Date appointmentDate) {
         SQLiteDatabase db = getWritableDatabase();
         String sql = "SELECT * FROM " + tableName + " WHERE "
@@ -164,6 +192,10 @@ public class DBHandler extends SQLiteOpenHelper {
         return appointments;
     }
 
+    /**
+     * update all appointment details.
+     * @param appointment
+     */
     public void updateAppointment(Appointment appointment) {
         SQLiteDatabase db = getWritableDatabase();
 

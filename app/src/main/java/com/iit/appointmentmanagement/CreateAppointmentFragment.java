@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
@@ -108,6 +109,11 @@ public class CreateAppointmentFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Open external popup window and show thesaurus on it.
+     * @param word
+     * @throws IOException
+     */
     public void openThesaurus(String word) throws IOException {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.thesaurus_popup);
@@ -124,11 +130,17 @@ public class CreateAppointmentFragment extends Fragment {
             this.url = this.thesaurusService.getUrl();
             this.url = this.url.replace("&{word}", word);
             new ThesaurusCaller().execute();
+            dialog.show();
+        } else {
+            Toast.makeText(getActivity(), "Internet is required!", Toast.LENGTH_SHORT).show();
         }
-        dialog.show();
     }
 
-
+    /**
+     * Check internet connection is available or not.
+     *
+     * @return
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -199,6 +211,10 @@ public class CreateAppointmentFragment extends Fragment {
         alert.show();
     }
 
+    /**
+     * This class is running as a separate thread. this is for calling to web service.
+     * AsyncTask
+     */
     private class ThesaurusCaller extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -220,6 +236,12 @@ public class CreateAppointmentFragment extends Fragment {
         }
     }
 
+    /**
+     * Create a connection with web service. and store data in local array.
+     *
+     * @param url
+     * @throws IOException
+     */
     public void downloadData(String url) throws IOException {
         URL myurl = new URL(url);
         URLConnection con = myurl.openConnection();
@@ -234,6 +256,10 @@ public class CreateAppointmentFragment extends Fragment {
         }
         in.close();
 
+
+        /**
+         * Jackson data bind.
+         */
         ObjectMapper mapper = new ObjectMapper();
 
         JsonFactory factory = mapper.getFactory();

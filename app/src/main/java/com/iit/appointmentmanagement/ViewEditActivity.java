@@ -26,6 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Stelan Briyan
+ */
 public class ViewEditActivity extends AppCompatActivity {
     private DateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private DateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");

@@ -13,6 +13,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ * @author Stelan Briyan
+ */
 public class CustomListAdapter extends BaseAdapter {
     private List<Appointment> appointments;
     private DateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");

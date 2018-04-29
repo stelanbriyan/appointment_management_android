@@ -105,6 +105,9 @@ public class SelectAppointmentToDelete extends AppCompatActivity {
                 .setNegativeButton("No", dialogClickListener).show();
     }
 
+    /**
+     * Load appointments to the custom list.
+     */
     public void loadItems() {
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
         numberFormat.setMinimumIntegerDigits(2);
